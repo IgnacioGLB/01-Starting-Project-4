@@ -7,6 +7,12 @@ jobs:
       matrix:
         node-version: [12, 14, 16]
         operating-system: [ubuntu-latest, windows-latest]
+        include: # reserved key. aca, por ejemplo, solo va a intentar UNA de estas combinaciones. 18 y ubuntu, no la suma a las otras.
+          - node-version: 18
+            operating-system: ubuntu-latest
+        exclude: # aca se saca de la matrix la combinacion version 12 con windows.
+          - node-version: 12
+            operating-system: windows-latest
     runs-on: ${{ matrix.operating-system }} # esto corre una vez por cada value del campo operating, y corren en paralelo
     steps:
       - name: Get code
